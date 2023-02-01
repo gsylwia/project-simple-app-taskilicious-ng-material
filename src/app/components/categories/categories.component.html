@@ -1,0 +1,10 @@
+<mat-card>
+    <mat-card-title>Welcome to Taskilicious</mat-card-title>
+    <br>
+    <mat-card-content>
+        <h2>Choose a category</h2>
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let item of list$ | async">{{item.name}}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
