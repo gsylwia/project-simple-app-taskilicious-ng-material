@@ -6,5 +6,8 @@
         <mat-list role="list">
             <mat-list-item role="listitem" *ngFor="let item of list$ | async">{{item.name}}</mat-list-item>
         </mat-list>
+        <button mat-mini-fab [routerLink]="'categories/create'">
+            <mat-icon>add</mat-icon>
+        </button>
     </mat-card-content>
 </mat-card>
