@@ -4,7 +4,10 @@
     <mat-card-content>
         <h2>Choose a category</h2>
         <mat-list role="list">
-            <mat-list-item role="listitem" *ngFor="let item of list$ | async">{{item.name}}</mat-list-item>
+            <mat-list-item role="listitem" *ngFor="let item of list$ | async">{{item.name}} <button mat-mini-fab
+                    color="transparent" style="box-shadow: none;" [routerLink]="'categories/edit/' + item.id">
+                    <mat-icon>edit</mat-icon>
+                </button></mat-list-item>
         </mat-list>
         <button mat-mini-fab [routerLink]="'categories/create'">
             <mat-icon>add</mat-icon>

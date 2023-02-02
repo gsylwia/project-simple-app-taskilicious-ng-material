@@ -15,4 +15,12 @@ export class CategoriesService {
   create(category: CategoryModel): Observable<void> {
     return this._httpClient.post<void>('https://63761992b5f0e1eb850298da.mockapi.io/categories', category);
   }
+
+  getOne(id: string): Observable<CategoryModel> {
+    return this._httpClient.get<CategoryModel>('https://63761992b5f0e1eb850298da.mockapi.io/categories/' + id);
+  }
+
+  update(categoryForm: CategoryModel): Observable<CategoryModel> {
+    return this._httpClient.put<CategoryModel>('https://63761992b5f0e1eb850298da.mockapi.io/categories/' + categoryForm.id, categoryForm);
+  }
 }
