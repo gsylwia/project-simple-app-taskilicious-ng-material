@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Params } from '@angular/router';
+import { combineLatest, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { CategoryModel } from '../../models/category.model';
+import { TasksModel } from '../../models/tasks.model';
 import { CategoriesService } from '../../services/categories.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-categories-detail',
@@ -14,7 +16,16 @@ import { CategoriesService } from '../../services/categories.service';
 })
 export class CategoriesDetailComponent {
   readonly details$: Observable<CategoryModel> = this._activatedRoute.params.pipe(switchMap(data => this._categoriesService.getOne(data['id'])));
+  
+  readonly tasks$: Observable<TasksModel[]> = combineLatest([
+    this._taskService.getAll(), 
+    this._activatedRoute.params
+  ]).pipe(
+    map(([taskList, params]: [TasksModel[], Params]) => {
+      return taskList.filter(((task: TasksModel) => task.categoryId === params['id']))
+    })
+  );
 
-  constructor(private _activatedRoute: ActivatedRoute, private _categoriesService: CategoriesService) {
+  constructor(private _activatedRoute: ActivatedRoute, private _categoriesService: CategoriesService, private _taskService: TaskService) {
   }
 }
