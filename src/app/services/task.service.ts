@@ -15,4 +15,8 @@ export class TaskService {
   create(task: TasksModel): Observable<void> {
     return this._httpClient.post<void>('https://63761992b5f0e1eb850298da.mockapi.io/tasks', task);
   }
+
+  delete(id: string): Observable<TasksModel> {
+    return this._httpClient.delete<TasksModel>('https://63761992b5f0e1eb850298da.mockapi.io/tasks/' + id);
+  }
 }
